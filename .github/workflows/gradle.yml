@@ -20,31 +20,43 @@ jobs:
       with:
         java-version: '21'
         distribution: 'temurin'
-        
+
     - name: Build
       run: cmd.exe /c gradlew.bat assembleRelease
 
+    - name: Determine version
+      id: ver
+      shell: bash
+      run: |
+        if [[ "${{ github.ref }}" == refs/tags/v* ]]; then
+          echo "version=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+        else
+          echo "version=dev" >> $GITHUB_OUTPUT
+        fi
+
     - name: Sign
-      run: cmd.exe /c java.exe -jar "signer\ApkSigner.jar" sign --key "signer\apkeasytool.pk8" --cert "signer\apkeasytool.pem"  --v4-signing-enabled false --out "%cd%/app/build/outputs/apk/release/YouTube-X.apk" "%cd%/app/build/outputs/apk/release/app-release-unsigned.apk"
-      
+      shell: cmd
+      run: |
+        java.exe -jar "signer\ApkSigner.jar" sign --key "signer\apkeasytool.pk8" --cert "signer\apkeasytool.pem" --v4-signing-enabled false --out "%cd%/app/build/outputs/apk/release/YouTube-X v.${{ steps.ver.outputs.version }}.apk" "%cd%/app/build/outputs/apk/release/app-release-unsigned.apk"
+
     - name: Upload Artifact
       uses: actions/upload-artifact@v4
       with:
-          name: YouTube-X
-          path: "app/build/outputs/apk/release/YouTube-X.apk"
+        name: YouTube-X
+        path: "app/build/outputs/apk/release/YouTube-X v.${{ steps.ver.outputs.version }}.apk"
 
     - name: Create Release
       if: startsWith(github.ref, 'refs/tags/v')
       uses: softprops/action-gh-release@v2
       with:
-        files: app/build/outputs/apk/release/YouTube-X.apk
-        name: YouTube X ${{ github.ref_name }}
+        files: app/build/outputs/apk/release/YouTube-X v.${{ steps.ver.outputs.version }}.apk
+        name: YouTube X v.${{ steps.ver.outputs.version }}
         body: |
-          Релиз ${{ github.ref_name }}
+          Релиз v.${{ steps.ver.outputs.version }}
           
           - Русский интерфейс
           - Воспроизведение в фоне
-          - Убрана шестерёнка настроек
-          - Оптимизирована скорость работы
+          - Загрузка медиа
+          - Иконка YouTube X
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
