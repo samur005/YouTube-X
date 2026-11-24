@@ -26,6 +26,30 @@
     btn.innerHTML = "⚙️ Обновления";
     btn.style.cssText = "position:fixed;bottom:70px;right:12px;z-index:99999;padding:10px 14px;background:#c00;color:#fff;border-radius:24px;font-size:14px;font-weight:bold;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,.5);display:flex;align-items:center;gap:6px;";
     btn.onclick = () => { window.location.hash = "settings"; };
+
+/* Inject "Проверить обновления" into native YouTube settings page */
+(function(){
+  const injectUpdateItem = () => {
+    if (document.getElementById("ytx-update-item")) return;
+    // Look for settings list
+    const settingsList = document.querySelector("ytm-settings-page, ytm-settings-section, .settings-page, [class*='settings']");
+    const items = document.querySelectorAll("ytm-settings-item-renderer, ytm-compact-link-renderer, a[href*='settings']");
+    if (items.length > 2) {
+      const firstItem = items[0];
+      const updateItem = document.createElement("div");
+      updateItem.id = "ytx-update-item";
+      updateItem.style.cssText = "display:flex;align-items:center;padding:16px 16px;border-bottom:1px solid #333;cursor:pointer;background:#1a1a1a;";
+      updateItem.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#fff" viewBox="0 0 24 24" style="margin-right:16px;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg><span style="color:#fff;font-size:16px;">Проверить обновления YouTube X</span>`;
+      updateItem.onclick = () => { 
+        window.location.hash = "settings"; 
+        setTimeout(() => checkUpdates && checkUpdates(), 100);
+      };
+      firstItem.parentNode.insertBefore(updateItem, firstItem);
+    }
+  };
+  setInterval(injectUpdateItem, 1500);
+})();
+
     document.body.appendChild(btn);
   }
 })();
