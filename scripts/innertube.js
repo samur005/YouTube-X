@@ -12,7 +12,7 @@ window.ytproSabrDownload= async function() {
 
 var ytproDownDiv=getDownloadElement();
 
-ytproDownDiv.querySelector("#videoViewDiv").innerHTML="Loading...";
+ytproDownDiv.querySelector("#videoViewDiv").innerHTML="Загрузка...";
 
 
 //Get Video ID
@@ -292,7 +292,7 @@ type: 'muxable',
 qualityLabel: quality,
 language: lang.name,
 languageId: lang.id,
-isDefaultLanguage: lang.isDefault,
+isDefaultЯзык: lang.isDefault,
 container: 'mp4',
 totalBytes: mp4Video.sizeBytes + mp4Audio.sizeBytes,
 totalSizeFormatted: formatBytes(mp4Video.sizeBytes + mp4Audio.sizeBytes),
@@ -310,7 +310,7 @@ type: 'muxable',
 qualityLabel: quality,
 language: lang.name,
 languageId: lang.id,
-isDefaultLanguage: lang.isDefault,
+isDefaultЯзык: lang.isDefault,
 container: 'webm',
 totalBytes: webmVideo.sizeBytes + webmAudio.sizeBytes,
 totalSizeFormatted: formatBytes(webmVideo.sizeBytes + webmAudio.sizeBytes),
@@ -354,7 +354,7 @@ background:${d};
 
 
 
-ytproDownDiv.querySelector("#videoViewDiv").innerHTML=`<label for="selectLang" style="margin-right:5px;">Language:</label>`;
+ytproDownDiv.querySelector("#videoViewDiv").innerHTML=`<label for="selectLang" style="margin-right:5px;">Язык:</label>`;
 
 
 var langList=document.createElement("select");
@@ -445,7 +445,7 @@ audioOnlyDiv.innerHTML="";
 var formatDivider=document.createElement("li");
 
 formatDivider.innerHTML=`
-<span>Audio Only (${uniqueLanguages.filter( arr => { return arr.id==langId;})[0].name})</span> 
+<span>Только аудио (${uniqueLanguages.filter( arr => { return arr.id==langId;})[0].name})</span> 
 <span style="margin-left:10px;transform:rotate(180deg);"  >
 <svg style="margin-top:5px" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="${c}"  viewBox="0 0 18 18">
 <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/>
@@ -503,7 +503,7 @@ videoOnlyDiv.innerHTML="";
 var formatDivider=document.createElement("li");
 
 formatDivider.innerHTML=`
-<span>Video Only</span> 
+<span>Только видео</span> 
 <span style="margin-left:10px;transform:rotate(180deg);"  >
 <svg style="margin-top:5px" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="${c}"  viewBox="0 0 18 18">
 <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/>
@@ -547,14 +547,14 @@ videoOnlyDiv.appendChild(formatLi);
 
 
 
-function updateThumbnails(){
+function updateМиниатюраs(){
 var div=ytproDownDiv.querySelector("#thumbViewDiv");
 div.innerHTML="<style>.thu{height:80px;border-radius:5px;}.thu img{max-height:97%;max-width:70%;border-radius:10px;border:1px solid silver;}</style>";
 
 var thumbs=info.basic_info.thumbnail;
 
 thumbs.forEach(thumb=>{
-div.innerHTML+=`<li class="thu" data-url="${thumb.url}" data-title="Thumbnail ${thumb.height} &#x2715; ${thumb.width} ${safeTitle} YTPRO.jpg" >
+div.innerHTML+=`<li class="thu" data-url="${thumb.url}" data-title="Миниатюра ${thumb.height} &#x2715; ${thumb.width} ${safeTitle} YTPRO.jpg" >
 <img src="${thumb.url}"><br>
 <span style="margin-left:30px;display:flex;align-items:center;justify-content:center;"  >${downBtn}<span style="margin-left:10px;"  >${thumb.height} &#x2715; ${thumb.width}
 </span></span></li>`
@@ -571,15 +571,15 @@ Android.downvid(el.dataset.title,el.dataset.url,"image/jpg");
 }
 
 
-function updateCaptions(){
+function updateСубтитры(){
 var div=ytproDownDiv.querySelector("#captionsViewDiv");
 div.innerHTML=`<style>cp{width:100%;height:auto;padding-bottom:8px;}c{height:45px;width:50px;padding-top:5px;background:${d};border-radius:10px;margin-left:10px;display:block}</style>`;
 
 var captions=info?.captions?.caption_tracks;
 
-if(!captions) return div.innerHTML=`No Captions Found`;
+if(!captions) return div.innerHTML=`Субтитры не найдены`;
 
-var t=`Captions ${safeTitle} YTPRO`;
+var t=`Субтитры ${safeTitle} YTPRO`;
 
 captions.forEach(cap=>{
 
@@ -646,14 +646,14 @@ downloadSABRStream(el.dataset.videoItag,null,el.dataset.isWebm,null,EnabledTrack
 
 if(info?.basic_info?.is_live || info?.basic_info?.is_live_content){
 
-ytproDownDiv.querySelector("#videoViewDiv").innerHTML="Downloading live streams <br>aren't supported at the moment";
+ytproDownDiv.querySelector("#videoViewDiv").innerHTML="Загрузка прямых трансляций<br>пока не поддерживается";
 }else{
 updateMuxFormats();
 updateAudioOnlyFormats();
 updateVideoOnlyFormats(); 
 }
-updateThumbnails();
-updateCaptions();
+updateМиниатюраs();
+updateСубтитры();
 
 
 
@@ -694,7 +694,7 @@ if(!Android.hasStoragePermission()){
   return;
 }
 
-Android.showToast("Download Started");
+Android.showToast("Загрузка началась");
 
 
 const containerExt = isWebm == "true" ? 'webm' : 'mp4';
@@ -929,8 +929,8 @@ if (!ytproDownDiv.contains(ev.target)) history.back();
 // Build tabs declaratively
 const TABS = [
 { label: "Formats",    viewId: "videoViewDiv"    },
-{ label: "Thumbnails", viewId: "thumbViewDiv"    },
-{ label: "Captions",   viewId: "captionsViewDiv" },
+{ label: "Миниатюраs", viewId: "thumbViewDiv"    },
+{ label: "Субтитры",   viewId: "captionsViewDiv" },
 ];
 
 const tabStyle = {
