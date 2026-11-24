@@ -23,8 +23,8 @@
   if (!document.getElementById("ytx-settings-btn")) {
     const btn = document.createElement("div");
     btn.id = "ytx-settings-btn";
-    btn.innerHTML = "⚙️";
-    btn.style.cssText = "position:fixed;bottom:80px;right:16px;z-index:9999;width:48px;height:48px;background:rgba(0,0,0,.7);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.4);";
+    btn.innerHTML = "⚙️ Обновления";
+    btn.style.cssText = "position:fixed;bottom:70px;right:12px;z-index:99999;padding:10px 14px;background:#c00;color:#fff;border-radius:24px;font-size:14px;font-weight:bold;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,.5);display:flex;align-items:center;gap:6px;";
     btn.onclick = () => { window.location.hash = "settings"; };
     document.body.appendChild(btn);
   }
