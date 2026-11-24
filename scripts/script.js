@@ -1,6 +1,35 @@
 /* YouTube X - Russian UI */
 
 /* Hide YouTube "Приложение" / app switcher in header during playback */
+
+/* Change YouTube logo text to YouTube X and add settings button */
+(function(){
+  const fixHeader = () => {
+    // Change the logo text
+    const logos = document.querySelectorAll('ytm-logo, .yt-logo, [aria-label="YouTube"], .logo');
+    logos.forEach(el => {
+      if (el.textContent && el.textContent.includes("YouTube") && !el.textContent.includes("X")) {
+        el.textContent = el.textContent.replace("YouTube", "YouTube X");
+      }
+    });
+    // Also try the main title
+    const title = document.querySelector("ytm-app-header-renderer h1, .header-title, #header .title");
+    if (title && title.textContent === "YouTube") title.textContent = "YouTube X";
+  };
+  setInterval(fixHeader, 1000);
+  setTimeout(fixHeader, 500);
+
+  // Add a small floating settings button (bottom-right) so user can access menu
+  if (!document.getElementById("ytx-settings-btn")) {
+    const btn = document.createElement("div");
+    btn.id = "ytx-settings-btn";
+    btn.innerHTML = "⚙️";
+    btn.style.cssText = "position:fixed;bottom:80px;right:16px;z-index:9999;width:48px;height:48px;background:rgba(0,0,0,.7);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.4);";
+    btn.onclick = () => { window.location.hash = "settings"; };
+    document.body.appendChild(btn);
+  }
+})();
+
 (function(){
   const style = document.createElement('style');
   style.textContent = `
@@ -253,7 +282,7 @@ subtree: true
 
 
 /*Add Settings Tab*/
-var addSettingsTab=()=>{return;
+var addSettingsTab=()=>{
 if(document.getElementById("setDiv") == null){
 var setDiv=document.createElement("div");
 setDiv.setAttribute("style",`
