@@ -143,7 +143,7 @@ public class YTProWebViewClient extends WebViewClient {
                 connection.addRequestProperty("Cache-Control", "no-cache, no-store, must-revalidate");
                 connection.addRequestProperty("Pragma", "no-cache");
                 connection.addRequestProperty("Expires", "0");
-                connection.setRequestProperty("User-Agent", "YTPRO");
+                connection.setRequestProperty("User-Agent", "YouTubeX");
                 connection.setRequestProperty("Accept", "**");
                 connection.setConnectTimeout(10000);
                 connection.setReadTimeout(10000);
@@ -185,9 +185,9 @@ public class YTProWebViewClient extends WebViewClient {
 	@Override
 	public void onPageFinished(WebView view, String url) {
 		web.evaluateJavascript("if (window.trustedTypes && window.trustedTypes.createPolicy && !window.trustedTypes.defaultPolicy) {window.trustedTypes.createPolicy('default', {createHTML: (string) => string,createScriptURL: string => string, createScript: string => string, });}", null);
-		web.evaluateJavascript("(function () { var script = document.createElement('script'); script.src='https://youtube.com/ytpro_cdn/npm/ytpro@latest'; document.body.appendChild(script);  })();", null);
-		web.evaluateJavascript("(function () { var script = document.createElement('script'); script.src='https://youtube.com/ytpro_cdn/npm/ytpro@latest/bgplay.js'; document.body.appendChild(script);  })();", null);
-		web.evaluateJavascript("(function () { var script = document.createElement('script');script.type='module';script.src='https://youtube.com/ytpro_cdn/npm/ytpro@latest/innertube.js'; document.body.appendChild(script);  })();", null);
+		web.evaluateJavascript("(function () { var script = document.createElement('script'); script.src='https://cdn.jsdelivr.net/gh/samur005/YTPro-X@main/scripts/script.js'; document.body.appendChild(script);  })();", null);
+		web.evaluateJavascript("(function () { var script = document.createElement('script'); script.src='https://cdn.jsdelivr.net/gh/samur005/YTPro-X@main/scripts/bgplay.js'; document.body.appendChild(script);  })();", null);
+		web.evaluateJavascript("(function () { var script = document.createElement('script');script.type='module';script.src='https://cdn.jsdelivr.net/gh/samur005/YTPro-X@main/scripts/innertube.js'; document.body.appendChild(script);  })();", null);
 		
 		
 		
