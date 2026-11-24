@@ -1,7 +1,7 @@
-/*****YTPRO*******
-Author: Prateek Chaubey
-Version: 3.9.2
-URI: https://github.com/prateek-chaubey/YTPRO
+/*****YouTube X*******
+Author: YouTube X
+Version: 1.0.0
+URI: https://github.com/samur005/YTPro-X
 */
 
 if (typeof MediaMetadata === 'undefined') {
@@ -39,7 +39,6 @@ get() {
 return _metadata;
 },
 set(value) {
-//console.log("metadata set:", value); 
 bgPlay(value);
 _metadata = value;
 },
@@ -55,9 +54,6 @@ if (typeof handler === 'function') {
 handlers[action] = handler;
 }
 
-//console.log(action,handler)
-
-
 };
 
 
@@ -70,9 +66,6 @@ get() {
 return _state;
 },
 set(value) {
-
-//console.log("Custom playbackState set to:", value);
-
 
 _state = value;
 
@@ -136,9 +129,6 @@ var context = canvas.getContext('2d');
 canvas.width = 160;
 canvas.height  = 90;
 
-//var z=performance.now();
-
-
 await new Promise((res,rej)=>{
 img.onload=()=>res();
 });
@@ -148,16 +138,6 @@ try{
 context.drawImage(img, 0,0 ,160,90);
 iconBase64 = canvas.toDataURL('image/png',1.0);
 }catch{}
-
-
-
-
-
-
-
-
-
-
 
 
 if(window.serviceRunning){
@@ -170,43 +150,14 @@ setTimeout(()=>{Android.bgStart(iconBase64.replace("data:image/png;base64,", "")
 setTimeout(()=>{Android.bgPlay(ytproAud.currentTime*1000);},100);
 }
 
-
-
-
-
-
-
-
-
-
-
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*When user hits the notification*/
 function seekTo(t){
 handlers.seekto({ seekTime: t/1000 });
 }
 
-/*Daamm , its play*/
 function playVideo(){
-
 
 if(!pauseAllowed){
 window.PIPause = false;
@@ -216,10 +167,7 @@ navigator.mediaSession.playbackState = 'playing';
 handlers.play();
 }
 
-/*Daamm , its pause*/
 function pauseVideo(){
-
-
 
 if(!pauseAllowed){
 window.PIPause=true;
@@ -227,22 +175,12 @@ navigator.mediaSession.playbackState = 'paused';
 }
 handlers.pause();
 
-
-
-
 }
 
-
-
-/*Alexa , play da next song*/
 async function playNext(){
 handlers.nexttrack();
 }
 
-
-
-
-/*Alexa , play the f**ng song once again */
 function playPrev(){
 handlers.previoustrack();
 }
