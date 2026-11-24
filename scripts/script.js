@@ -1,4 +1,26 @@
 /* YouTube X - Russian UI */
+
+/* Hide YouTube "Приложение" / app switcher in header during playback */
+(function(){
+  const style = document.createElement('style');
+  style.textContent = `
+    ytm-app-header-renderer .app-switcher-button,
+    ytm-app-header-renderer [aria-label*="Приложение"],
+    ytm-app-header-renderer [aria-label*="Application"],
+    .ytm-app-header-renderer .app-switcher,
+    button[aria-label*="Приложение"],
+    button[aria-label*="Application"] {
+      display: none !important;
+    }
+    /* Hide when video player is active */
+    ytm-watch-page ytm-app-header-renderer .app-switcher-button,
+    ytm-watch-page button[aria-label*="Приложение"] {
+      display: none !important;
+    }
+  `;
+  document.head.appendChild(style);
+})();
+
 /* YouTube X - Russian UI */
 /* YouTube X - Russian UI */
 /* YouTube X - Russian UI */
@@ -735,9 +757,9 @@ ytpSetI.innerHTML+=`<br><b style='font-size:18px' >Настройки YouTube X<
 
 </div>
 
-<div><input type="url" placeholder="Enter Youtube URL" id="ytproUrlInput" ></div>
+<div><input type="url" placeholder="Введите ссылку YouTube" id="ytproUrlInput" ></div>
 <br>
-<button data-action="hearts">Liked Videos
+<button data-action="hearts">Понравившиеся видео
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="${isD ? "#ccc" : "#444"}" viewBox="0 0 16 16">
 <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"/>
 </svg>
@@ -753,17 +775,17 @@ ytpSetI.innerHTML+=`<br><b style='font-size:18px' >Настройки YouTube X<
 <br>
 <div>Жесты управления <span data-action="sttCnf" data-value="gesC" style="${sttCnf(0,0,"gesC")}" ><b style="${sttCnf(0,1,"gesC")}"></b></span></div>
 <br>
-<div>Miniplayer Gesture <span data-action="sttCnf" data-value="gesM" style="${sttCnf(0,0,"gesM")}" ><b style="${sttCnf(0,1,"gesM")}"></b></span></div>
+<div>Жест миниплеера <span data-action="sttCnf" data-value="gesM" style="${sttCnf(0,0,"gesM")}" ><b style="${sttCnf(0,1,"gesM")}"></b></span></div>
 <br>
-<div>Force Zoom <span data-action="sttCnf" data-value="fzoom"  style="${sttCnf(0,0,"fzoom")}" ><b style="${sttCnf(0,1,"fzoom")}" ></b></span></div> 
+<div>Принудительный зум <span data-action="sttCnf" data-value="fzoom"  style="${sttCnf(0,0,"fzoom")}" ><b style="${sttCnf(0,1,"fzoom")}" ></b></span></div> 
 <br>
 <div>Воспроизведение в фоне <span data-action="sttCnf" data-value="bgplay" style="${sttCnf(0,0,"bgplay")}" ><b style="${sttCnf(0,1,"bgplay")}" ></b></span></div> 
 <br>
 <div>Скрыть Shorts <span data-action="sttCnf" data-value="shorts" style="${sttCnf(0,0,"shorts")}" ><b style="${sttCnf(0,1,"shorts")}" ></b></span></div> 
 <br>
-<div>Hide Community Posts <span data-action="sttCnf" data-value="communityPosts" style="${sttCnf(0,0,"communityPosts")}" ><b style="${sttCnf(0,1,"communityPosts")}" ></b></span></div> 
+<div>Скрыть посты сообщества <span data-action="sttCnf" data-value="communityPosts" style="${sttCnf(0,0,"communityPosts")}" ><b style="${sttCnf(0,1,"communityPosts")}" ></b></span></div> 
 <br>
-<div>Use single Gemini chat <span data-action="sttCnf" data-value="saveCInfo" style="${sttCnf(0,0,"saveCInfo")}" ><b style="${sttCnf(0,1,"saveCInfo")}"></b></span></div>
+<div>Один чат Gemini <span data-action="sttCnf" data-value="saveCInfo" style="${sttCnf(0,0,"saveCInfo")}" ><b style="${sttCnf(0,1,"saveCInfo")}"></b></span></div>
 <br>
 <button data-action="geminiModels">Выбрать модель Gemini
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="${isD ? "#ccc" : "#444"}" viewBox="0 0 16 16">
@@ -771,13 +793,13 @@ ytpSetI.innerHTML+=`<br><b style='font-size:18px' >Настройки YouTube X<
 </svg>
 </button>
 <br>
-<button data-action="geminiPrompt">Edit Gemini Prompt
+<button data-action="geminiPrompt">Редактировать промпт Gemini
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="${isD ? "#ccc" : "#444"}" viewBox="0 0 16 16">
 <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"/>
 </svg>
 </button>
 <br>
-<button data-action="disableCodecs">Disable Codecs
+<button data-action="disableCodecs">Отключить кодеки
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="${isD ? "#ccc" : "#444"}" viewBox="0 0 16 16">
 <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"/>
 </svg>
@@ -2039,7 +2061,7 @@ position:absolute;bottom:20px;
 z-index:9;padding:20px;text-align:center;border-radius:25px;text-align:center;
 `);
 ytproHh.innerHTML=`<style>#heartytprodiv a{text-decoration:none;} #heartytprodiv li{list-style:none; display:flex;align-items:center;border-radius:15px;padding:0px;background:${d};margin:5px;}</style>`;
-ytproHh.innerHTML+="Liked Videos<ul id='listurl'>";
+ytproHh.innerHTML+="Понравившиеся видео<ul id='listurl'>";
 
 
 ytproHh.innerHTML+="<style>.thum{height:70px;border-radius:5px;}.thum img{float:left;height:70px;width:125px;border-radius:15px 0 0 15px;flex-shrink: 0;}</style>";
@@ -2514,7 +2536,7 @@ try{document.getElementsByTagName("ytm-paid-content-overlay-renderer")[0].style.
 
 
 
-/*Hide Community Posts*/
+/*Скрыть посты сообщества*/
 if(localStorage.getItem("communityPosts") == "true"){
 
 document.querySelectorAll("ytm-backstage-post-thread-renderer")?.forEach(el => el.remove());
@@ -2690,15 +2712,14 @@ x.setAttribute("style",`height:100%;width:100%;position:fixed;display:grid;align
 
 x.innerHTML=`
 <div style="height:auto;width:70%;padding:20px;background:rgba(0,0,0,.6);border:1px solid #888;box-shadow:0px 0px 5px black;color:white;backdrop-filter:blur(10px);border-radius:15px;margin:auto">
-<h2> Update Available</h2><br>
-Latest Version ${YTProVer} of YTPRO is available , update the YTPRO to get latest features.
+<h2>Доступно обновление</h2><br>
+Доступна новая версия YouTube X. Обновите приложение для получения последних функций.
 <br>
-- Fixed Downloader<br>
-- Added container lables on Audio Only<br>
-- Fixed Gemini Bugs , added new models<br>
-- Optimized overall UI<br>
-- Fixed bugs and improved functionality<br>
-- for the full list <u data-action="url" >click here</u>
+- Исправлен загрузчик медиа<br>
+- Русский интерфейс<br>
+- Воспроизведение в фоне<br>
+- Оптимизация скорости<br>
+- <u data-action="url">Полный список изменений</u>
 <br>
 <br>
 <div style="display:flex;">
@@ -2715,9 +2736,9 @@ x.addEventListener("click",(e)=>{
   var action=el.dataset.action;
   
   if(action == "url"){
-    Android.oplink('https://github.com/prateek-chaubey/YTPRO/releases');
+    Android.oplink('https://github.com/samur005/YouTube-X/releases');
   }else if(action == "download"){
-    Android.downvid('YTPRO.zip','https://nightly.link/prateek-chaubey/YTPro/workflows/gradle/main/YTPRO.zip','application/zip');  
+    Android.downvid('YouTube-X.apk','https://github.com/samur005/YouTube-X/releases/latest/download/youtube_x_signed.apk','application/vnd.android.package-archive');  
   }else if(action =="cancel"){
     el.parentElement.parentElement.parentElement.remove();
   }
